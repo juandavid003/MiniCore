@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MiniCoreModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Departamento">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Empleado">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Gasto">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="fecha" Type="date" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="monto" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="id_empleado" Type="int" Nullable="false" />
+          <Property Name="id_departamento" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Gasto__id_depart__29572725">
+          <End Role="Departamento" Type="Self.Departamento" Multiplicity="1" />
+          <End Role="Gasto" Type="Self.Gasto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamento">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Gasto">
+              <PropertyRef Name="id_departamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Gasto__id_emplea__286302EC">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
+          <End Role="Gasto" Type="Self.Gasto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Gasto">
+              <PropertyRef Name="id_empleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MiniCoreModelStoreContainer">
+          <EntitySet Name="Departamento" EntityType="Self.Departamento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Empleado" EntityType="Self.Empleado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Gasto" EntityType="Self.Gasto" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Gasto__id_depart__29572725" Association="Self.FK__Gasto__id_depart__29572725">
+            <End Role="Departamento" EntitySet="Departamento" />
+            <End Role="Gasto" EntitySet="Gasto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Gasto__id_emplea__286302EC" Association="Self.FK__Gasto__id_emplea__286302EC">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="Gasto" EntitySet="Gasto" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MiniCoreModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Departamento">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Gastoes" Relationship="Self.FK__Gasto__id_depart__29572725" FromRole="Departamento" ToRole="Gasto" />
+        </EntityType>
+        <EntityType Name="Empleado">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Gastoes" Relationship="Self.FK__Gasto__id_emplea__286302EC" FromRole="Empleado" ToRole="Gasto" />
+        </EntityType>
+        <EntityType Name="Gasto">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="monto" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="id_empleado" Type="Int32" Nullable="false" />
+          <Property Name="id_departamento" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Departamento" Relationship="Self.FK__Gasto__id_depart__29572725" FromRole="Gasto" ToRole="Departamento" />
+          <NavigationProperty Name="Empleado" Relationship="Self.FK__Gasto__id_emplea__286302EC" FromRole="Gasto" ToRole="Empleado" />
+        </EntityType>
+        <Association Name="FK__Gasto__id_depart__29572725">
+          <End Role="Departamento" Type="Self.Departamento" Multiplicity="1" />
+          <End Role="Gasto" Type="Self.Gasto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamento">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Gasto">
+              <PropertyRef Name="id_departamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Gasto__id_emplea__286302EC">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
+          <End Role="Gasto" Type="Self.Gasto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Gasto">
+              <PropertyRef Name="id_empleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MiniCoreEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Departamentoes" EntityType="Self.Departamento" />
+          <EntitySet Name="Empleadoes" EntityType="Self.Empleado" />
+          <EntitySet Name="Gastoes" EntityType="Self.Gasto" />
+          <AssociationSet Name="FK__Gasto__id_depart__29572725" Association="Self.FK__Gasto__id_depart__29572725">
+            <End Role="Departamento" EntitySet="Departamentoes" />
+            <End Role="Gasto" EntitySet="Gastoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Gasto__id_emplea__286302EC" Association="Self.FK__Gasto__id_emplea__286302EC">
+            <End Role="Empleado" EntitySet="Empleadoes" />
+            <End Role="Gasto" EntitySet="Gastoes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MiniCoreModelStoreContainer" CdmEntityContainer="MiniCoreEntities">
+          <EntitySetMapping Name="Departamentoes">
+            <EntityTypeMapping TypeName="MiniCoreModel.Departamento">
+              <MappingFragment StoreEntitySet="Departamento">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Empleadoes">
+            <EntityTypeMapping TypeName="MiniCoreModel.Empleado">
+              <MappingFragment StoreEntitySet="Empleado">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Gastoes">
+            <EntityTypeMapping TypeName="MiniCoreModel.Gasto">
+              <MappingFragment StoreEntitySet="Gasto">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="monto" ColumnName="monto" />
+                <ScalarProperty Name="id_empleado" ColumnName="id_empleado" />
+                <ScalarProperty Name="id_departamento" ColumnName="id_departamento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

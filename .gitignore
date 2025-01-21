@@ -1,0 +1,18 @@
+# Ignorar la carpeta .vs
+.vs/
+
+# Ignorar archivos temporales de compilación
+*.obj
+*.exe
+*.pdb
+
+# Ignorar carpetas de binarios y depuración
+bin/
+obj/
+
+# Ignorar archivos generados por usuario de Visual Studio
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+ECHO is on.
